@@ -161,7 +161,7 @@ def index():
     }
 
     return json.dumps(api_docs, indent=2)
-
+ 
 
 if __name__ == "__main__":
     run(app, host="0.0.0.0", port=getConfig("PORT"), debug=True)

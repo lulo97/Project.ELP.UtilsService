@@ -1,0 +1,5 @@
+{
+    "WHISPER_CPP_MODEL_NAME": "ggml-small.en.bin",
+    "PIPER_TTS_MODEL_NAME": "en_US-ryan-high.onnx",
+    "PORT": 3002
+}

@@ -6,6 +6,7 @@ from youtube.utils.fetchAudio import fetchAudio
 from youtube.utils.fetchTranscript import fetchTranscript
 from text_to_speech.textToSpeech import textToSpeech
 from speech_to_text.speechToText import speechToText
+from youtube.utils.getAudios import getAudios
 
 app = Bottle()
 
@@ -43,6 +44,13 @@ def get_transcript():
 def get_audio():
     video_id = request.query.get("video_id")
     result = fetchAudio(video_id)
+    response.content_type = "application/json"
+    return json.dumps({"error": None, "data": result}, indent=2)
+
+
+@app.get("/get_audios")
+def get_all_audios():
+    result = getAudios()
     response.content_type = "application/json"
     return json.dumps({"error": None, "data": result}, indent=2)
 
@@ -161,7 +169,7 @@ def index():
     }
 
     return json.dumps(api_docs, indent=2)
- 
+
 
 if __name__ == "__main__":
     run(app, host="0.0.0.0", port=getConfig("PORT"), debug=True)

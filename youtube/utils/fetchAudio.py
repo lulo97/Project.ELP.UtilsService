@@ -9,6 +9,7 @@ from utils.getConnection import getConnection
 from utils.getRandomId import getRandomId
 
 parent_folder = os.path.dirname(os.path.abspath(__file__))
+grandpa_folder = os.path.dirname(parent_folder)
 
 def fetchAudio(video_id):
     """
@@ -31,13 +32,15 @@ def fetchAudio(video_id):
 
     # Pick yt-dlp path based on OS
     if platform.system() == "Windows":
-        yt_dlp_path = os.path.join(parent_folder, "windows", "yt-dlp.exe")
+        yt_dlp_path = os.path.join(grandpa_folder, "windows", "yt-dlp.exe")
+        ffmpeg_path = os.path.join(grandpa_folder, "windows")
     else:
-        yt_dlp_path = os.path.join(parent_folder, "linux", "yt-dlp")
+        yt_dlp_path = os.path.join(grandpa_folder, "linux", "yt-dlp")
+        ffmpeg_path = os.path.join(grandpa_folder, "linux")
         
     command = [
         yt_dlp_path,
-        "--quiet", "--no-warnings",
+        "--ffmpeg-location", ffmpeg_path,
         "-x", "--audio-format", "mp3",
         "-o", "%(id)s.%(ext)s",
         "--audio-quality", "64K",
